@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace FluentWebAssembly
 {
-    public abstract class MvvmComponentBase<TViewModel> : ComponentBase
+    public abstract class MvvmComponentBase<TViewModel> : LayoutComponentBase
     where TViewModel : IViewModelBase
     {
         [Inject]

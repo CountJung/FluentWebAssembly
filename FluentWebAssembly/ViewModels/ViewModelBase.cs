@@ -8,7 +8,8 @@ namespace FluentWebAssembly.ViewModels
     {
         public static IServiceCollection AddViewModels(this IServiceCollection services)
         {
-            services.AddScoped<CounterViewModel>();
+            services.AddScoped<MainViewModel>();
+            services.AddScoped<QuestionCardViewModel>();
             return services;
         }
     }

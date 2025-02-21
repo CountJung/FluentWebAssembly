@@ -1,42 +1,30 @@
 ﻿@page "/weather"
-@inject HttpClient Http
+@* @inject HttpClient Http *@
+@inherits MvvmComponentBase<QuestionCardViewModel>
 
-<PageTitle>Weather</PageTitle>
+<PageTitle>밸런스게임</PageTitle>
 
-<h1>Weather</h1>
+<h1>랜덤을 누른 후 멈춘 질문에 성실히 답하시오.</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<FluentLabel Typo="Typography.Subject">사망토론</FluentLabel>
+<FluentGrid Justify="JustifyContent.FlexStart">
+    <FluentGridItem xs="12" sm="12">
+        <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10"
+                     Style="margin: 0px 0px; padding: 10px; border: 1px solid var(--accent-fill-rest);">
+            <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollToPrevious()">앞</FluentButton>
+            <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollToNext()">뒤</FluentButton>
+            <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollInView(Random.Shared.Next(ViewModel.BalanceQuestions!.Count))">랜덤</FluentButton>
+        </FluentStack>
+    </FluentGridItem>
 
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <FluentDataGrid Id="weathergrid" Items="@forecasts" GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem=WeatherForecast>
-        <PropertyColumn Title="Date" Property="@(c => c!.Date)" Sortable="true" Align="Align.Start" />
-        <PropertyColumn Title="Temp. (C)" Property="@(c => c!.TemperatureC)" Sortable="true" Align="Align.Center" />
-        <PropertyColumn Title="Temp. (F)" Property="@(c => c!.TemperatureF)" Sortable="true" Align="Align.Center" />
-        <PropertyColumn Title="Summary" Property="@(c => c!.Summary)" Sortable="true" Align="Align.End" />
-    </FluentDataGrid>
-}
-
-@code {
-    private IQueryable<WeatherForecast>? forecasts;
-
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = (await Http.GetFromJsonAsync<List<WeatherForecast>>("sample-data/weather.json"))!.AsQueryable();
-    }
-
-    public class WeatherForecast
-    {
-        public DateOnly Date { get; set; }
-
-        public int TemperatureC { get; set; }
-
-        public string? Summary { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-    }
-}
+    <FluentGridItem xs="12" sm="3">
+        <FluentHorizontalScroll @ref="ViewModel.HorizontalScroll" Speed="3600" Easing=ScrollEasing.EaseInOut>
+            @foreach (string question in ViewModel.BalanceQuestions!)
+            {
+                <FluentCard Height="auto" Width="350px" AreaRestricted="false">
+                    <FluentLabel Typo="Typography.HeroTitle"> @question </FluentLabel>
+                </FluentCard>
+            }
+        </FluentHorizontalScroll>
+    </FluentGridItem>
+</FluentGrid>

@@ -1,8 +1,15 @@
-﻿@inherits LayoutComponentBase
+﻿@inherits MvvmComponentBase<MainViewModel>
+
+<FluentDesignTheme @bind-Mode="@ViewModel.Mode" @bind-OfficeColor="@ViewModel.OfficeColor" StorageName="theme" />
 
 <FluentLayout>
     <FluentHeader>
         FluentWebAssembly
+        <FluentSpacer />
+        <FluentButton IconEnd="@(ViewModel.Mode == DesignThemeModes.Light ? new Icons.Regular.Size16.BrightnessHigh() : new Icons.Regular.Size16.WeatherMoon())"
+                      Title="ToggleTheme" @onclick="(o) => ViewModel.ToggleThemeCommand.Execute(o)" Appearance="Appearance.Accent">
+            ThemeMode
+        </FluentButton>
     </FluentHeader>
     <FluentStack Class="main" Orientation="Orientation.Horizontal" Width="100%">
         <NavMenu />

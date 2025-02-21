@@ -1,7 +1,31 @@
 ﻿@page "/"
+@page "/home"
+@inherits MvvmComponentBase<QuestionCardViewModel>
 
-<PageTitle>Home</PageTitle>
+<PageTitle>질문게임</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>랜덤을 누른 후 멈춘 질문에 성실히 답하시오.</h1>
 
-Welcome to your new Fluent Blazor app.
+<FluentLabel Typo="Typography.Subject">랜덤 질문</FluentLabel>
+
+<FluentGrid Justify="JustifyContent.FlexStart">
+    <FluentGridItem xs="12" sm="12">
+        <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10"
+                     Style="margin: 0px 0px; padding: 10px; border: 1px solid var(--accent-fill-rest);">
+            <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollToPrevious()">앞</FluentButton>
+            <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollToNext()">뒤</FluentButton>
+            <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollInView(Random.Shared.Next(ViewModel.GeneralQuestions!.Count))">랜덤</FluentButton>
+        </FluentStack>
+    </FluentGridItem>
+
+    <FluentGridItem xs="12" sm="3">
+        <FluentHorizontalScroll @ref="ViewModel.HorizontalScroll" Speed="3600" Easing=ScrollEasing.EaseInOut>
+            @foreach (string question in ViewModel.GeneralQuestions!)
+            {
+                <FluentCard Height="auto" Width="350px" AreaRestricted="false">
+                    <FluentLabel Typo="Typography.HeroTitle"> @question </FluentLabel>
+                </FluentCard>
+            }
+        </FluentHorizontalScroll>
+    </FluentGridItem>
+</FluentGrid>
