@@ -7,7 +7,7 @@
 
 <p role="status">Current count: <FluentBadge Appearance="Appearance.Neutral">@ViewModel.CurrentCount</FluentBadge></p>
 <FluentButton Appearance="Appearance.Accent" @onclick="(o)=>ViewModel.IncrementCountCommand.Execute(o)">Click me</FluentButton>
-<FluentTextField Label="Enter a Text" @bind-Value="@ViewModel.TestText"></FluentTextField>
+<FluentTextField Label="Enter a Text" Immediate="true" @bind-Value="@ViewModel.TestText"></FluentTextField>
 
 @* @code {
     private int currentCount = 0;

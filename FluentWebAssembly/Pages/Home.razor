@@ -17,8 +17,12 @@
             <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollInView(Random.Shared.Next(ViewModel.GeneralQuestions!.Count))">랜덤</FluentButton>
         </FluentStack>
     </FluentGridItem>
-
-    <FluentGridItem xs="12" sm="3">
+    @* •	xs="12": 모바일(전체)
+    •	sm="6": 작은 태블릿(50%)
+    •	md="4": 태블릿(33%)
+    •	lg="3": 노트북(25%)
+    •	xl="2": 데스크탑(16%) *@
+    <FluentGridItem xs="12" sm="6" md="4" lg="3" xl="2">
         <FluentHorizontalScroll @ref="ViewModel.HorizontalScroll" Speed="3600" Easing=ScrollEasing.EaseInOut>
             @foreach (string question in ViewModel.GeneralQuestions!)
             {
