@@ -1,5 +1,5 @@
 ﻿@inherits MvvmComponentBase<MainViewModel>
-
+@implements IAsyncDisposable
 <FluentDesignTheme @bind-Mode="@ViewModel.Mode" @bind-OfficeColor="@ViewModel.OfficeColor" StorageName="theme" />
 
 <FluentLayout>

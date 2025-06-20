@@ -1,5 +1,6 @@
 ﻿using FluentWebAssembly.ViewModels;
 using Microsoft.AspNetCore.Components;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace FluentWebAssembly
@@ -16,13 +17,26 @@ namespace FluentWebAssembly
         protected override void OnInitialized()
         {
             // Cause changes to the ViewModel to make Blazor re-render
-            ViewModel.PropertyChanged += async (_, _) => { await Task.Yield(); StateHasChanged(); };
+            ViewModel.PropertyChanged += PropertyChangedHandler;
             base.OnInitialized();
         }
 
         protected override Task OnInitializedAsync()
         {
             return ViewModel.OnInitializedAsync();
+        }
+        public async ValueTask DisposeAsync()
+        {
+            ViewModel.PropertyChanged -= PropertyChangedHandler;
+            await ViewModel.DisposeAsync().ConfigureAwait(false);
+        }
+        private async void PropertyChangedHandler(object? sender, PropertyChangedEventArgs e)
+        {
+            if (sender is TViewModel)
+            {
+                await Task.Yield();
+                StateHasChanged();
+            }
         }
     }
 }

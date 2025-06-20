@@ -18,6 +18,7 @@ namespace FluentWebAssembly.ViewModels
     {
         Task OnInitializedAsync();
         Task Loaded();
+        ValueTask DisposeAsync();
     }
 
     public abstract partial class ViewModelBase : ObservableObject, IViewModelBase
@@ -31,6 +32,11 @@ namespace FluentWebAssembly.ViewModels
 
         [RelayCommand]
         public virtual async Task Loaded()
+        {
+            await Task.CompletedTask.ConfigureAwait(false);
+        }
+
+        public virtual async ValueTask DisposeAsync()
         {
             await Task.CompletedTask.ConfigureAwait(false);
         }
