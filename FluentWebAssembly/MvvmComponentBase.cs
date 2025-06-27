@@ -20,7 +20,14 @@ namespace FluentWebAssembly
             ViewModel.PropertyChanged += PropertyChangedHandler;
             base.OnInitialized();
         }
-
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await ViewModel.OnAfterRenderAsync(firstRender);
+            }
+            await base.OnAfterRenderAsync(firstRender);
+        }
         protected override Task OnInitializedAsync()
         {
             return ViewModel.OnInitializedAsync();
@@ -35,7 +42,7 @@ namespace FluentWebAssembly
             if (sender is TViewModel)
             {
                 await Task.Yield();
-                StateHasChanged();
+                await InvokeAsync(() => { StateHasChanged(); });
             }
         }
     }

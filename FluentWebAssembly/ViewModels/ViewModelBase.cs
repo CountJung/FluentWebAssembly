@@ -17,6 +17,7 @@ namespace FluentWebAssembly.ViewModels
     public interface IViewModelBase : INotifyPropertyChanged
     {
         Task OnInitializedAsync();
+        Task OnAfterRenderAsync(bool firstRender);
         Task Loaded();
         ValueTask DisposeAsync();
     }
@@ -29,7 +30,15 @@ namespace FluentWebAssembly.ViewModels
         }
 
         protected virtual void NotifyStateChanged() => OnPropertyChanged((string?)null);
-
+        public virtual async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                // Perform any initialization logic here
+                // await Loaded().ConfigureAwait(false);
+            }
+            await Task.CompletedTask.ConfigureAwait(false);
+        }
         [RelayCommand]
         public virtual async Task Loaded()
         {
