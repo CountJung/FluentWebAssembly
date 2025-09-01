@@ -1,13 +1,40 @@
 ﻿@page "/counter"
 @inherits MvvmComponentBase<QuestionCardViewModel>
 @implements IAsyncDisposable
-<PageTitle>Counter</PageTitle>
+<PageTitle>HJ Version</PageTitle>
+
+<h1>랜덤을 누른 후 멈춘 질문에 성실히 답하시오.</h1>
+
+<FluentLabel Typo="Typography.Subject">HJ Question</FluentLabel>
+<FluentGrid Justify="JustifyContent.FlexStart">
+    <FluentGridItem xs="12" sm="12">
+        <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10"
+                     Style="margin: 0px 0px; padding: 10px; border: 1px solid var(--accent-fill-rest);">
+            <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollToPrevious()">앞</FluentButton>
+            <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollToNext()">뒤</FluentButton>
+            <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollInView(Random.Shared.Next(ViewModel.QuestionModels.HJQuestions!.Count))">랜덤</FluentButton>
+        </FluentStack>
+    </FluentGridItem>
+
+    <FluentGridItem xs="12" sm="6" md="4" lg="3" xl="2">
+        <FluentHorizontalScroll @ref="ViewModel.HorizontalScroll" Speed="36000" Easing=ScrollEasing.Linear>
+            @foreach (string question in ViewModel.QuestionModels.HJQuestions!)
+            {
+                <FluentCard Height="auto" Width="350px" AreaRestricted="false">
+                    <FluentLabel Typo="Typography.HeroTitle"> @question </FluentLabel>
+                </FluentCard>
+            }
+        </FluentHorizontalScroll>
+    </FluentGridItem>
+</FluentGrid>
+
+@* <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
 
 <p role="status">Current count: <FluentBadge Appearance="Appearance.Neutral">@ViewModel.CurrentCount</FluentBadge></p>
 <FluentButton Appearance="Appearance.Accent" @onclick="(o)=>ViewModel.IncrementCountCommand.Execute(o)">Click me</FluentButton>
-<FluentTextField Label="Enter a Text" Immediate="true" @bind-Value="@ViewModel.TestText"></FluentTextField>
+<FluentTextField Label="Enter a Text" Immediate="true" @bind-Value="@ViewModel.TestText"></FluentTextField> *@
 
 @* @code {
     private int currentCount = 0;

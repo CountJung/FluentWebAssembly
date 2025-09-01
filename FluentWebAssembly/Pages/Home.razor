@@ -3,11 +3,11 @@
 @inherits MvvmComponentBase<QuestionCardViewModel>
 @implements IAsyncDisposable
 
-<PageTitle>질문게임</PageTitle>
+<PageTitle>SJ QUESTION</PageTitle>
 
 <h1>랜덤을 누른 후 멈춘 질문에 성실히 답하시오.</h1>
 
-<FluentLabel Typo="Typography.Subject">랜덤 질문</FluentLabel>
+<FluentLabel Typo="Typography.Subject">SJ QUESTION</FluentLabel>
 
 <FluentGrid Justify="JustifyContent.FlexStart">
     <FluentGridItem xs="12" sm="12">
@@ -15,7 +15,7 @@
                      Style="margin: 0px 0px; padding: 10px; border: 1px solid var(--accent-fill-rest);">
             <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollToPrevious()">앞</FluentButton>
             <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollToNext()">뒤</FluentButton>
-            <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollInView(Random.Shared.Next(ViewModel.GeneralQuestions!.Count))">랜덤</FluentButton>
+            <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollInView(Random.Shared.Next(ViewModel.QuestionModels.SJQuestions!.Count))">랜덤</FluentButton>
         </FluentStack>
     </FluentGridItem>
     @* •	xs="12": 모바일(전체)
@@ -24,8 +24,8 @@
     •	lg="3": 노트북(25%)
     •	xl="2": 데스크탑(16%) *@
     <FluentGridItem xs="12" sm="6" md="4" lg="3" xl="2">
-        <FluentHorizontalScroll @ref="ViewModel.HorizontalScroll" Speed="3600" Easing=ScrollEasing.EaseInOut>
-            @foreach (string question in ViewModel.GeneralQuestions!)
+        <FluentHorizontalScroll @ref="ViewModel.HorizontalScroll" Speed="36000" Easing=ScrollEasing.Linear>
+            @foreach (string question in ViewModel.QuestionModels.SJQuestions!)
             {
                 <FluentCard Height="auto" Width="350px" AreaRestricted="false">
                     <FluentLabel Typo="Typography.HeroTitle"> @question </FluentLabel>

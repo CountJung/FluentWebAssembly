@@ -13,13 +13,13 @@
                      Style="margin: 0px 0px; padding: 10px; border: 1px solid var(--accent-fill-rest);">
             <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollToPrevious()">앞</FluentButton>
             <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollToNext()">뒤</FluentButton>
-            <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollInView(Random.Shared.Next(ViewModel.BalanceQuestions!.Count))">랜덤</FluentButton>
+            <FluentButton @onclick="() => ViewModel.HorizontalScroll.ScrollInView(Random.Shared.Next(ViewModel.QuestionModels.BalanceQuestions!.Count))">랜덤</FluentButton>
         </FluentStack>
     </FluentGridItem>
 
     <FluentGridItem xs="12" sm="6" md="4" lg="3" xl="2">
-        <FluentHorizontalScroll @ref="ViewModel.HorizontalScroll" Speed="3600" Easing=ScrollEasing.EaseInOut>
-            @foreach (string question in ViewModel.BalanceQuestions!)
+        <FluentHorizontalScroll @ref="ViewModel.HorizontalScroll" Speed="36000" Easing=ScrollEasing.Linear>
+            @foreach (string question in ViewModel.QuestionModels.BalanceQuestions!)
             {
                 <FluentCard Height="auto" Width="350px" AreaRestricted="false">
                     <FluentLabel Typo="Typography.HeroTitle"> @question </FluentLabel>
